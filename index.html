@@ -4,286 +4,489 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRO Image Format Manager</title>
-    <style>
-        :root {
-            --bg-color: #1e1e1e;
-            --text-color: #f5f5f5;
-            --header-bg: #333;
-            --button-bg: #3b82f6;
-            --button-hover-bg: #2563eb;
-            --preview-border: #555;
-        }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Manager UI</title>
+  <style>
+    /* Reset and basic styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
 
-        [data-theme="light"] {
-            --bg-color: #f4f4f7;
-            --text-color: #333;
-            --header-bg: #e0e0e0;
-            --button-bg: #007aff;
-            --button-hover-bg: #005bb5;
-            --preview-border: #ddd;
-        }
+    body {
+      display: flex;
+      height: 100vh;
+      background: url(SequoiaDark.png);
+      background-repeat: no-repeat;
+      background-attachment: fixed;  
+      background-size: cover;
+      justify-content: center;
+      align-items: center;
+    }
 
-        body {
-            font-family: "San Francisco", Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            transition: background-color 0.3s, color 0.3s;
-        }
+    .login-container {
+      display: none; /* Initially hidden */
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      border-radius: 12px;
+    }
 
-        .mac-window {
-            width: 450px;
-            background-color: var(--bg-color);
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Added depth */
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            margin: 20px;
-        }
+    .login-container input {
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border: none;
+      background: transparent;
+      outline: none;
+      color: white;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(13.5px);
+      -webkit-backdrop-filter: blur(13.5px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
 
-        .mac-header {
-            height: 30px;
-            background-color: var(--header-bg);
-            display: flex;
-            align-items: center;
-            padding: 0 10px;
-            gap: 10px;
-        }
+    .login-container button {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      color: white;
+      background-color: #007aff; /* MacOS blue button */
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
 
-        .mac-header .button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
+    .login-container button:hover {
+      background-color: #005bb5;
+    }
 
-        .mac-header .button.red {
-            background-color: #ff5f57;
-        }
+    .login-container button:active {
+      transform: scale(0.95);
+    }
+    .file-manager {
+      display: none;
+      overflow-x: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
 
-        .mac-header .button.yellow {
-            background-color: #ffbd2e;
-        }
+    /* MacOS-like top bar */
+    .mac-top-bar {
+      display: flex;
+      align-items: center;
+      background-color: #2b2b2b;
+      padding: 8px 16px;
+      position: sticky;
+      top: 0;
+    }
 
-        .mac-header .button.green {
-            background-color: #28c840;
-        }
+    .mac-buttons {
+      display: flex;
+      gap: 8px;
+      margin-right: 12px;
+    }
 
-        .dark-mode-toggle {
-            margin-left: auto;
-            cursor: pointer;
-            font-size: 14px;
-            background-color: var(--button-bg);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 2px 8px;
-        }
+    .mac-button {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+}
 
-        .mac-content {
-            padding: 20px;
-            text-align: center;
-        }
+a{
+  text-decoration: none;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(255, 255, 255); 
+  border-radius: 20px;
+}
 
-        .mac-content h1 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b30000; 
+}
 
-        .mac-content p {
-            font-size: 14px;
-            color: var(--text-color);
-            margin-bottom: 20px;
-        }
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 55px;
+    }
 
-        .drag-drop-area {
-            border: 2px dashed var(--preview-border);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            transition: border-color 0.3s;
-        }
 
-        .drag-drop-area.dragover {
-            border-color: var(--button-bg);
-        }
+    .logo {
+      width: 100px;
+    }
 
-        #fileInput {
-            display: none;
-        }
-
-        label.button {
-            display: inline-block;
-            padding: 10px 20px;
-            cursor: pointer;
-            background-color: var(--button-bg);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 14px;
-            margin-top: 10px;
-        }
-
-        label.button:hover {
-            background-color: var(--button-hover-bg);
-        }
-
-        .preview-container {
-            position: relative;
-            margin-top: 20px;
-        }
-
-        #preview {
-            max-width: 100%;
-            max-height: 300px;
-            border: 2px solid var(--preview-border);
-            border-radius: 10px;
-        }
-
-        .remove-preview {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: red;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .remove-preview:hover {
-            background-color: darkred;
-        }
-    </style>
+    .pfp {
+      width: 100px;
+      border-radius: 100px;
+    }
+  </style>
 </head>
-<body data-theme="dark">
-    <div class="mac-window">
-        <div class="mac-header">
-            <div class="button red"></div>
-            <div class="button yellow"></div>
-            <div class="button green"></div>
-            <button class="dark-mode-toggle">Light</button>
-        </div>
-        <div class="mac-content">
-            <h1>CRO Image Format Manager</h1>
-            <p>Drag and drop an image or a .cro file below, or click to upload.</p>
-            <div class="drag-drop-area" id="dragDropArea">
-                Drop your file here or click to upload.
+<body>
+  <!-- Login Screen -->
+  <div class="login-container">
+    <img class="pfp" src="1e20869f3ca24a60ae084382a9d900da.png" alt="Profile Picture">
+    <input type="password" id="password" placeholder="Enter password">
+    <button id="login-btn">Login</button>
+    <p id="error-msg" style="color: rgb(255, 255, 255); display: none;">Incorrect Password</p>
+  </div>
+
+  <!-- File Manager -->
+  <div class="file-manager">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CRO Image Format Manager</title>
+        <style>
+            :root {
+                --bg-color: #1e1e1e;
+                --text-color: #f5f5f5;
+                --header-bg: #333;
+                --button-bg: #3b82f6;
+                --button-hover-bg: #2563eb;
+                --preview-border: #555;
+            }
+    
+            [data-theme="light"] {
+                --bg-color: #f4f4f7;
+                --text-color: #333;
+                --header-bg: #e0e0e0;
+                --button-bg: #007aff;
+                --button-hover-bg: #005bb5;
+                --preview-border: #ddd;
+            }
+    
+            body {
+                font-family: "San Francisco", Arial, sans-serif;
+                background-color: var(--bg-color);
+                color: var(--text-color);
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                transition: background-color 0.3s, color 0.3s;
+            }
+    
+            .mac-window {
+              margin: 20px;
+                width: 450px;
+                background-color: var(--bg-color);
+                border-radius: 10px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Added depth */
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+            }
+    
+            .mac-header {
+                height: 30px;
+                background-color: var(--header-bg);
+                display: flex;
+                align-items: center;
+                padding: 0 10px;
+                gap: 10px;
+            }
+    
+            .mac-header .button {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+            }
+    
+            .mac-header .button.red {
+                background-color: #ff5f57;
+            }
+    
+            .mac-header .button.yellow {
+                background-color: #ffbd2e;
+            }
+    
+            .mac-header .button.green {
+                background-color: #28c840;
+            }
+    
+            .dark-mode-toggle {
+                margin-left: auto;
+                cursor: pointer;
+                font-size: 14px;
+                background-color: var(--button-bg);
+                color: white;
+                border: none;
+                border-radius: 5px;
+                padding: 2px 8px;
+            }
+    
+            .mac-content {
+                padding: 20px;
+                text-align: center;
+            }
+    
+            .mac-content h1 {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+    
+            .mac-content p {
+                font-size: 14px;
+                color: var(--text-color);
+                margin-bottom: 20px;
+            }
+    
+            .drag-drop-area {
+                border: 2px dashed var(--preview-border);
+                border-radius: 10px;
+                padding: 20px;
+                text-align: center;
+                transition: border-color 0.3s;
+            }
+    
+            .drag-drop-area.dragover {
+                border-color: var(--button-bg);
+            }
+    
+            #fileInput {
+                display: none;
+            }
+    
+            label.button {
+                display: inline-block;
+                padding: 10px 20px;
+                cursor: pointer;
+                background-color: var(--button-bg);
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 14px;
+                margin-top: 10px;
+            }
+    
+            label.button:hover {
+                background-color: var(--button-hover-bg);
+            }
+    
+            .preview-container {
+                position: relative;
+                margin-top: 20px;
+            }
+    
+            #preview {
+                max-width: 100%;
+                max-height: 300px;
+                border: 2px solid var(--preview-border);
+                border-radius: 10px;
+            }
+    
+            .remove-preview {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background-color: red;
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+            }
+    
+            .remove-preview:hover {
+                background-color: darkred;
+            }
+        </style>
+    </head>
+    <body data-theme="dark">
+        <div class="mac-window">
+            <div class="mac-header">
+                <div class="button red"></div>
+                <div class="button yellow"></div>
+                <div class="button green"></div>
+                <button class="dark-mode-toggle">Light</button>
             </div>
-            <label class="button" for="fileInput">Choose File</label>
-            <input type="file" id="fileInput" />
-            <canvas id="canvas" style="display: none;"></canvas>
-            <div class="preview-container" id="previewContainer" style="display: none;">
-                <img id="preview" alt="Preview" />
-                <button class="remove-preview" id="removePreview">&times;</button>
+            <div class="mac-content">
+                <h1>CRO Image Format Manager</h1>
+                <p>Drag and drop an image or a .cro file below, or click to upload.</p>
+                <div class="drag-drop-area" id="dragDropArea">
+                    Drop your file here or click to upload.
+                </div>
+                <label class="button" for="fileInput">Choose File</label>
+                <input type="file" id="fileInput" />
+                <canvas id="canvas" style="display: none;"></canvas>
+                <div class="preview-container" id="previewContainer" style="display: none;">
+                    <img id="preview" alt="Preview" />
+                    <button class="remove-preview" id="removePreview">&times;</button>
+                </div>
             </div>
         </div>
+        </div>
+      </main>
     </div>
 
-    <script>
-        const fileInput = document.getElementById('fileInput');
-        const dragDropArea = document.getElementById('dragDropArea');
-        const previewContainer = document.getElementById('previewContainer');
-        const preview = document.getElementById('preview');
-        const removePreview = document.getElementById('removePreview');
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        const darkModeToggle = document.querySelector('.dark-mode-toggle');
-        const body = document.body;
+  <script>
+    async function hashPassword(password) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(password);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      return Array.from(new Uint8Array(hashBuffer))
+                  .map(byte => byte.toString(16).padStart(2, '0'))
+                  .join('');
+    }
 
-        // Dark mode toggle
-        darkModeToggle.addEventListener('click', () => {
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            body.setAttribute('data-theme', newTheme);
-            darkModeToggle.textContent = newTheme === 'light' ? 'Dark' : 'Light';
-        });
+    const storedHash = '2335c22d1fccb63fed3ab118e1d42f51137a531324dee04ceb2bad83e1cf5d91';
+    const loginButton = document.getElementById('login-btn');
+    const errorMsg = document.getElementById('error-msg');
+    const fileManager = document.querySelector('.file-manager');
+    const loginContainer = document.querySelector('.login-container');
+    const passwordInput = document.getElementById('password');
 
-        // Drag and drop events
-        dragDropArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dragDropArea.classList.add('dragover');
-        });
+    window.onload = () => {
+      loginContainer.style.display = 'flex';
+    };
 
-        dragDropArea.addEventListener('dragleave', () => {
-            dragDropArea.classList.remove('dragover');
-        });
+    async function checkPassword() {
+      const password = passwordInput.value;
+      const hashedPassword = await hashPassword(password);
 
-        dragDropArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dragDropArea.classList.remove('dragover');
-            const file = e.dataTransfer.files[0];
-            handleFile(file);
-        });
+      if (hashedPassword === storedHash) {
+        loginContainer.style.display = 'none';
+        fileManager.style.display = 'flex';
+      } else {
+        errorMsg.style.display = 'block';
+      }
+    }
 
-        fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            handleFile(file);
-        });
+    loginButton.addEventListener('click', checkPassword);
+    passwordInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        checkPassword();
+      }
+    });
 
-        function handleFile(file) {
-            if (!file) return;
-
-            const fileExtension = file.name.split('.').pop().toLowerCase();
-
-            if (fileExtension === 'cro') {
-                decryptCROFile(file);
-            } else if (['png', 'jpg', 'jpeg', 'bmp', 'gif'].includes(fileExtension)) {
-                encryptImageToCRO(file);
-            } else {
-                alert('Unsupported file type. Please upload an image or .cro file.');
-            }
-        }
-
-        function encryptImageToCRO(file) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const img = new Image();
-                img.onload = () => {
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    ctx.drawImage(img, 0, 0);
-                    const imageData = canvas.toDataURL('image/png');
-                    const encryptedData = btoa(imageData);
-                    const blob = new Blob([encryptedData], { type: 'text/plain' });
-                    const link = document.createElement('a');
-                    link.href = URL.createObjectURL(blob);
-                    link.download = 'image.cro';
-                    link.click();
-                };
-                img.src = event.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function decryptCROFile(file) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                try {
-                    const imageData = atob(event.target.result);
-                    preview.src = imageData;
-                    previewContainer.style.display = 'block';
-                } catch {
-                    alert('Invalid .cro file');
+            const fileInput = document.getElementById('fileInput');
+            const dragDropArea = document.getElementById('dragDropArea');
+            const previewContainer = document.getElementById('previewContainer');
+            const preview = document.getElementById('preview');
+            const removePreview = document.getElementById('removePreview');
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            const darkModeToggle = document.querySelector('.dark-mode-toggle');
+            const body = document.body;
+    
+            // Dark mode toggle
+            darkModeToggle.addEventListener('click', () => {
+                const currentTheme = body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                body.setAttribute('data-theme', newTheme);
+                darkModeToggle.textContent = newTheme === 'light' ? 'Dark' : 'Light';
+            });
+    
+            // Drag and drop events
+            dragDropArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dragDropArea.classList.add('dragover');
+            });
+    
+            dragDropArea.addEventListener('dragleave', () => {
+                dragDropArea.classList.remove('dragover');
+            });
+    
+            dragDropArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dragDropArea.classList.remove('dragover');
+                const file = e.dataTransfer.files[0];
+                handleFile(file);
+            });
+    
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                handleFile(file);
+            });
+    
+            function handleFile(file) {
+                if (!file) return;
+    
+                const fileExtension = file.name.split('.').pop().toLowerCase();
+    
+                if (fileExtension === 'cro') {
+                    decryptCROFile(file);
+                } else if (['png', 'jpg', 'jpeg', 'bmp', 'gif'].includes(fileExtension)) {
+                    encryptImageToCRO(file);
+                } else {
+                    alert('Unsupported file type. Please upload an image or .cro file.');
                 }
-            };
-            reader.readAsText(file);
-        }
+            }
+    
+            function encryptImageToCRO(file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+                        const imageData = canvas.toDataURL('image/png');
+                        const encryptedData = btoa(imageData);
+                        const blob = new Blob([encryptedData], { type: 'text/plain' });
+                        const link = document.createElement('a');
+                        link.href = URL.createObjectURL(blob);
+                        link.download = 'image.cro';
+                        link.click();
+                    };
+                    img.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+    
+            function decryptCROFile(file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const imageData = atob(event.target.result);
+                        preview.src = imageData;
+                        previewContainer.style.display = 'block';
+                    } catch {
+                        alert('Invalid .cro file');
+                    }
+                };
+                reader.readAsText(file);
+            }
+    
+            removePreview.addEventListener('click', () => {
+                preview.src = '';
+                previewContainer.style.display = 'none';
+            });
+  </script>
+</body>
+</html>
 
-        removePreview.addEventListener('click', () => {
-            preview.src = '';
-            previewContainer.style.display = 'none';
-        });
-    </script>
 </body>
 </html>
