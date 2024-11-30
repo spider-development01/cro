@@ -156,7 +156,7 @@ p{
       height: 100vh;
       background: url(SequoiaDark.png);
       background-repeat: no-repeat;
-      background-attachment: fixed;  
+      background-attachment: fixed;
       background-size: cover;
       justify-content: center;
       align-items: center;
@@ -380,20 +380,32 @@ async function hashPassword(password) {
     });
 
     function handleFile(file) {
-      if (!file) return;
+  if (!file) return;
 
-      const fileExtension = file.name.split('.').pop().toLowerCase();
+  // Clear previous preview and outputs
+  preview.style.display = 'none';
+  videoPreview.style.display = 'none';
+  videoPreview.pause();
+  removePreview.style.display = 'none';
 
-      if (fileExtension === 'cro') {
-        decryptCROFile(file);
-      } else if (['png', 'jpg', 'jpeg', 'bmp', 'gif'].includes(fileExtension)) {
-        encryptImageToCRO(file);
-      } else if (['mp4', 'webm', 'avi', 'mov'].includes(fileExtension)) {
-        encryptVideoToCRO(file);
-      } else {
-        alert('Unsupported file type. Please upload an image, video, or .cro file.');
-      }
-    }
+  const downloadButton = document.getElementById('downloadButton');
+  if (downloadButton) {
+    downloadButton.remove();
+  }
+
+  const fileExtension = file.name.split('.').pop().toLowerCase();
+
+  if (fileExtension === 'cro') {
+    decryptCROFile(file);
+  } else if (['png', 'jpg', 'jpeg', 'bmp', 'gif'].includes(fileExtension)) {
+    encryptImageToCRO(file);
+  } else if (['mp4', 'webm', 'avi', 'mov'].includes(fileExtension)) {
+    encryptVideoToCRO(file);
+  } else {
+    alert('Unsupported file type. Please upload an image, video, or .cro file.');
+  }
+}
+
 
     function encryptImageToCRO(file) {
   const reader = new FileReader();
@@ -475,6 +487,7 @@ function decryptCROFile(file) {
       reader.readAsText(file);
     }
 
+    
     removePreview.addEventListener('click', () => {
       preview.style.display = 'none';
       videoPreview.style.display = 'none';
