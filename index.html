@@ -219,17 +219,6 @@ a{
                 background-color: #28c840;
             }
     
-            .dark-mode-toggle {
-                margin-left: auto;
-                cursor: pointer;
-                font-size: 14px;
-                background-color: var(--button-bg);
-                color: white;
-                border: none;
-                border-radius: 5px;
-                padding: 2px 8px;
-            }
-    
             .mac-content {
                 padding: 20px;
                 text-align: center;
@@ -317,7 +306,6 @@ a{
                 <div class="button red"></div>
                 <div class="button yellow"></div>
                 <div class="button green"></div>
-                <button class="dark-mode-toggle">Light</button>
             </div>
             <div class="mac-content">
                 <h1>CRO Image Format Manager</h1>
@@ -385,16 +373,7 @@ a{
             const removePreview = document.getElementById('removePreview');
             const canvas = document.getElementById('canvas');
             const ctx = canvas.getContext('2d');
-            const darkModeToggle = document.querySelector('.dark-mode-toggle');
             const body = document.body;
-    
-            // Dark mode toggle
-            darkModeToggle.addEventListener('click', () => {
-                const currentTheme = body.getAttribute('data-theme');
-                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-                body.setAttribute('data-theme', newTheme);
-                darkModeToggle.textContent = newTheme === 'light' ? 'Dark' : 'Light';
-            });
     
             // Drag and drop events
             dragDropArea.addEventListener('dragover', (e) => {
