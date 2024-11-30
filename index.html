@@ -5,6 +5,144 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CRO FORMAT MANAGER</title>
   <style>
+    :root {
+      --bg-color: #1e1e1e;
+      --text-color: #f5f5f5;
+      --header-bg: #333;
+      --button-bg: #3b82f6;
+      --button-hover-bg: #2563eb;
+      --preview-border: #555;
+    }
+
+    [data-theme="light"] {
+      --bg-color: #f4f4f7;
+      --text-color: #333;
+      --header-bg: #e0e0e0;
+      --button-bg: #007aff;
+      --button-hover-bg: #005bb5;
+      --preview-border: #ddd;
+    }
+
+    body {
+      font-family: "San Francisco", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .mac-window {
+      width: 500px;
+      background-color: var(--bg-color);
+      border-radius: 15px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+p{
+    margin-bottom: 14px;
+}
+
+    .mac-header {
+      height: 30px;
+      background-color: var(--header-bg);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 10px;
+    }
+
+    .mac-header .button {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .mac-header .button.red {
+      background-color: #ff5f57;
+    }
+
+    .mac-header .button.yellow {
+      background-color: #ffbd2e;
+    }
+
+    .mac-header .button.green {
+      background-color: #28c840;
+    }
+
+    .mac-content {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .drag-drop-area {
+      border: 2px dashed var(--preview-border);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: border-color 0.3s;
+    }
+
+    .drag-drop-area.dragover {
+      border-color: var(--button-bg);
+    }
+
+    #fileInput {
+      display: none;    
+    }
+
+    label.button {
+      display: inline-block;
+      padding: 10px 20px;
+      cursor: pointer;
+      background-color: var(--button-bg);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+
+    label.button:hover {
+      background-color: var(--button-hover-bg);
+    }
+
+    .preview-container {
+      margin-top: 20px;
+    }
+
+    #preview, #videoPreview {
+      max-width: 100%;
+      max-height: 300px;
+      border: 2px solid var(--preview-border);
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .remove-preview {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 5px 10px;
+      background-color: red;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .remove-preview:hover {
+      background-color: darkred;
+    }
+  </style>
+</head>
+
+<style>
     /* Reset and basic styling */
     * {
       margin: 0;
@@ -74,6 +212,7 @@
     .file-manager {
       display: none;
       overflow-x: hidden;
+      margin: 20px;
     }
 
     /* MacOS-like top bar */
@@ -146,188 +285,33 @@ a{
     <button id="login-btn">Login</button>
     <p id="error-msg" style="color: rgb(255, 255, 255); display: none;">Incorrect Password</p>
   </div>
-
-  <!-- File Manager -->
-  <div class="file-manager">
-        <style>
-            :root {
-                --bg-color: #1e1e1e;
-                --text-color: #f5f5f5;
-                --header-bg: #333;
-                --button-bg: #3b82f6;
-                --button-hover-bg: #2563eb;
-                --preview-border: #555;
-            }
-    
-            [data-theme="light"] {
-                --bg-color: #f4f4f7;
-                --text-color: #333;
-                --header-bg: #e0e0e0;
-                --button-bg: #007aff;
-                --button-hover-bg: #005bb5;
-                --preview-border: #ddd;
-            }
-    
-            body {
-                font-family: "San Francisco", Arial, sans-serif;
-                background-color: var(--bg-color);
-                color: var(--text-color);
-                margin: 0;
-                padding: 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                transition: background-color 0.3s, color 0.3s;
-            }
-    
-            .mac-window {
-              margin: 20px;
-                width: 450px;
-                background-color: var(--bg-color);
-                border-radius: 10px;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Added depth */
-                overflow: hidden;
-                display: flex;
-                flex-direction: column;
-            }
-    
-            .mac-header {
-                height: 30px;
-                background-color: var(--header-bg);
-                display: flex;
-                align-items: center;
-                padding: 0 10px;
-                gap: 10px;
-            }
-    
-            .mac-header .button {
-                width: 12px;
-                height: 12px;
-                border-radius: 50%;
-            }
-    
-            .mac-header .button.red {
-                background-color: #ff5f57;
-            }
-    
-            .mac-header .button.yellow {
-                background-color: #ffbd2e;
-            }
-    
-            .mac-header .button.green {
-                background-color: #28c840;
-            }
-    
-            .mac-content {
-                padding: 20px;
-                text-align: center;
-            }
-    
-            .mac-content h1 {
-                font-size: 20px;
-                margin-bottom: 10px;
-            }
-    
-            .mac-content p {
-                font-size: 14px;
-                color: var(--text-color);
-                margin-bottom: 20px;
-            }
-    
-            .drag-drop-area {
-                border: 2px dashed var(--preview-border);
-                border-radius: 10px;
-                padding: 20px;
-                text-align: center;
-                transition: border-color 0.3s;
-            }
-    
-            .drag-drop-area.dragover {
-                border-color: var(--button-bg);
-            }
-    
-            #fileInput {
-                display: none;
-            }
-    
-            label.button {
-                display: inline-block;
-                padding: 10px 20px;
-                cursor: pointer;
-                background-color: var(--button-bg);
-                color: white;
-                border: none;
-                border-radius: 5px;
-                font-size: 14px;
-                margin-top: 10px;
-            }
-    
-            label.button:hover {
-                background-color: var(--button-hover-bg);
-            }
-    
-            .preview-container {
-                position: relative;
-                margin-top: 20px;
-            }
-    
-            #preview {
-                max-width: 100%;
-                max-height: 300px;
-                border: 2px solid var(--preview-border);
-                border-radius: 10px;
-            }
-    
-            .remove-preview {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                background-color: red;
-                color: white;
-                border: none;
-                border-radius: 50%;
-                width: 20px;
-                height: 20px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                cursor: pointer;
-            }
-    
-            .remove-preview:hover {
-                background-color: darkred;
-            }
-        </style>
-    </head>
-    <body data-theme="dark">
-        <div class="mac-window">
-            <div class="mac-header">
-                <div class="button red"></div>
-                <div class="button yellow"></div>
-                <div class="button green"></div>
-            </div>
-            <div class="mac-content">
-                <h1>CRO Image Format Manager</h1>
-                <p>Drag and drop an image or a .cro file below, or click to upload.</p>
-                <div class="drag-drop-area" id="dragDropArea">
-                    Drop your file here or click to upload.
-                </div>
-                <label class="button" for="fileInput">Choose File</label>
-                <input type="file" id="fileInput" />
-                <canvas id="canvas" style="display: none;"></canvas>
-                <div class="preview-container" id="previewContainer" style="display: none;">
-                    <img id="preview" alt="Preview" />
-                    <button class="remove-preview" id="removePreview">&times;</button>
-                </div>
-            </div>
-        </div>
-        </div>
-      </main>
+    <!-- File Manager -->
+    <div class="file-manager">
+<body data-theme="dark">
+  <div class="mac-window">
+    <div class="mac-header">
+      <div class="button red"></div>
+      <div class="button yellow"></div>
+      <div class="button green"></div>
     </div>
+    <div class="mac-content">
+      <h1>CRO Format Manager</h1>
+      <p>Drag and drop an image, video, or a .cro file below, or click to upload.</p>
+      <div class="drag-drop-area" id="dragDropArea">
+        Drop your file here or click to upload.
+      </div>
+      <label class="button" for="fileInput">Choose File</label>
+      <input type="file" id="fileInput" accept="image/*,video/*,.cro" />
+      <canvas id="canvas" style="display: none;"></canvas>
+      <video id="videoPreview" controls style="display: none;"></video>
+      <img id="preview" alt="Preview" style="display: none;" />
+      <button class="remove-preview" id="removePreview" style="display: none;">Remove Preview</button>
+    </div>
+  </div>
 
   <script>
-    async function hashPassword(password) {
+
+async function hashPassword(password) {
       const encoder = new TextEncoder();
       const data = encoder.encode(password);
       const hashBuffer = await crypto.subtle.digest('SHA-256', data);
@@ -366,90 +350,200 @@ a{
       }
     });
 
-            const fileInput = document.getElementById('fileInput');
-            const dragDropArea = document.getElementById('dragDropArea');
-            const previewContainer = document.getElementById('previewContainer');
-            const preview = document.getElementById('preview');
-            const removePreview = document.getElementById('removePreview');
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
-            const body = document.body;
-    
-            // Drag and drop events
-            dragDropArea.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                dragDropArea.classList.add('dragover');
-            });
-    
-            dragDropArea.addEventListener('dragleave', () => {
-                dragDropArea.classList.remove('dragover');
-            });
-    
-            dragDropArea.addEventListener('drop', (e) => {
-                e.preventDefault();
-                dragDropArea.classList.remove('dragover');
-                const file = e.dataTransfer.files[0];
-                handleFile(file);
-            });
-    
-            fileInput.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                handleFile(file);
-            });
-    
-            function handleFile(file) {
-                if (!file) return;
-    
-                const fileExtension = file.name.split('.').pop().toLowerCase();
-    
-                if (fileExtension === 'cro') {
-                    decryptCROFile(file);
-                } else if (['png', 'jpg', 'jpeg', 'bmp', 'gif'].includes(fileExtension)) {
-                    encryptImageToCRO(file);
-                } else {
-                    alert('Unsupported file type. Please upload an image or .cro file.');
-                }
-            }
-    
-            function encryptImageToCRO(file) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    const img = new Image();
-                    img.onload = () => {
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        ctx.drawImage(img, 0, 0);
-                        const imageData = canvas.toDataURL('image/png');
-                        const encryptedData = btoa(imageData);
-                        const blob = new Blob([encryptedData], { type: 'text/plain' });
-                        const link = document.createElement('a');
-                        link.href = URL.createObjectURL(blob);
-                        link.download = 'image.cro';
-                        link.click();
-                    };
-                    img.src = event.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-    
-            function decryptCROFile(file) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    try {
-                        const imageData = atob(event.target.result);
-                        preview.src = imageData;
-                        previewContainer.style.display = 'block';
-                    } catch {
-                        alert('Invalid .cro file');
-                    }
-                };
-                reader.readAsText(file);
-            }
-    
-            removePreview.addEventListener('click', () => {
-                preview.src = '';
-                previewContainer.style.display = 'none';
-            });
+    const dragDropArea = document.getElementById('dragDropArea');
+    const fileInput = document.getElementById('fileInput');
+    const preview = document.getElementById('preview');
+    const videoPreview = document.getElementById('videoPreview');
+    const removePreview = document.getElementById('removePreview');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    dragDropArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dragDropArea.classList.add('dragover');
+    });
+
+    dragDropArea.addEventListener('dragleave', () => {
+      dragDropArea.classList.remove('dragover');
+    });
+
+    dragDropArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dragDropArea.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      handleFile(file);
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      handleFile(file);
+    });
+
+    function handleFile(file) {
+      if (!file) return;
+
+      const fileExtension = file.name.split('.').pop().toLowerCase();
+
+      if (fileExtension === 'cro') {
+        decryptCROFile(file);
+      } else if (['png', 'jpg', 'jpeg', 'bmp', 'gif'].includes(fileExtension)) {
+        encryptImageToCRO(file);
+      } else if (['mp4', 'webm', 'avi', 'mov'].includes(fileExtension)) {
+        encryptVideoToCRO(file);
+      } else {
+        alert('Unsupported file type. Please upload an image, video, or .cro file.');
+      }
+    }
+
+    function encryptImageToCRO(file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const compressionFactor = 0.7; // Adjust compression quality
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+          const imageData = canvas.toDataURL('image/jpeg', compressionFactor);
+          saveAsCRO(imageData, 'image');
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function encryptVideoToCRO(file) {
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    const videoData = event.target.result; // Base64 data URL of the video
+    const encryptedData = btoa(videoData); // Encrypt the Base64 data
+    const blob = new Blob([encryptedData], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'video.cro';
+    link.click();
+  };
+  reader.readAsDataURL(file); // Reads video as a Base64 data URL
+}
+
+function decryptCROFile(file) {
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    try {
+      const decryptedData = atob(event.target.result); // Decrypt Base64 data
+      if (decryptedData.startsWith('data:image')) {
+        preview.src = decryptedData; // Set image preview
+        preview.style.display = 'block';
+      } else if (decryptedData.startsWith('data:video')) {
+        videoPreview.src = decryptedData; // Set video preview
+        videoPreview.style.display = 'block';
+      }
+      removePreview.style.display = 'block';
+    } catch (error) {
+      alert('Invalid .cro file');
+    }
+  };
+  reader.readAsText(file); // Reads encrypted .cro file as text
+}
+
+    function saveAsCRO(data, type) {
+      const encryptedData = btoa(data);
+      const blob = new Blob([encryptedData], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `${type}.cro`;
+      link.click();
+    }
+
+    function decryptCROFile(file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const decodedData = atob(event.target.result);
+          if (decodedData.startsWith('data:image')) {
+            preview.src = decodedData;
+            preview.style.display = 'block';
+          } else if (decodedData.startsWith('data:video')) {
+            videoPreview.src = decodedData;
+            videoPreview.style.display = 'block';
+          }
+          removePreview.style.display = 'block';
+        } catch {
+          alert('Invalid .cro file');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    removePreview.addEventListener('click', () => {
+      preview.style.display = 'none';
+      videoPreview.style.display = 'none';
+      videoPreview.pause();
+      removePreview.style.display = 'none';
+
+      const downloadButton = document.getElementById('downloadButton');
+  if (downloadButton) {
+    downloadButton.remove();
+  }
+    });
+    function decryptCROFile(file) {
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    try {
+      const decryptedData = atob(event.target.result); // Decrypt Base64 data
+      if (decryptedData.startsWith('data:image')) {
+        preview.src = decryptedData; // Set image preview
+        preview.style.display = 'block';
+        createDownloadButton(decryptedData, 'image'); // Add download button for image
+      } else if (decryptedData.startsWith('data:video')) {
+        videoPreview.src = decryptedData; // Set video preview
+        videoPreview.style.display = 'block';
+        createDownloadButton(decryptedData, 'video'); // Add download button for video
+      }
+      removePreview.style.display = 'block';
+    } catch (error) {
+      alert('Invalid .cro file');
+    }
+  };
+  reader.readAsText(file); // Reads encrypted .cro file as text
+}
+
+function createDownloadButton(dataUrl, type) {
+  let downloadButton = document.getElementById('downloadButton');
+
+  // Remove existing download button if any
+  if (downloadButton) {
+    downloadButton.remove();
+  }
+
+  // Create new download button
+  downloadButton = document.createElement('a');
+  downloadButton.id = 'downloadButton';
+  downloadButton.textContent = 'Download Original File';
+  downloadButton.href = dataUrl;
+  downloadButton.download = `original.${type === 'image' ? 'png' : 'mp4'}`; // Adjust file extension
+  downloadButton.style.display = 'block';
+  downloadButton.style.marginTop = '10px';
+  downloadButton.style.padding = '10px 20px';
+  downloadButton.style.backgroundColor = 'var(--button-bg)';
+  downloadButton.style.color = '#fff';
+  downloadButton.style.textDecoration = 'none';
+  downloadButton.style.borderRadius = '5px';
+  downloadButton.style.cursor = 'pointer';
+
+  // Add hover effect
+  downloadButton.addEventListener('mouseover', () => {
+    downloadButton.style.backgroundColor = 'var(--button-hover-bg)';
+  });
+  downloadButton.addEventListener('mouseout', () => {
+    downloadButton.style.backgroundColor = 'var(--button-bg)';
+  });
+
+  // Append the button to the content area
+  document.querySelector('.mac-content').appendChild(downloadButton);
+}
+
+
   </script>
 </body>
 </html>
