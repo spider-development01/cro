@@ -396,32 +396,32 @@ async function hashPassword(password) {
     }
 
     function encryptImageToCRO(file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const img = new Image();
-        img.onload = () => {
-          const compressionFactor = 0.7; // Adjust compression quality
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx.drawImage(img, 0, 0);
-          const imageData = canvas.toDataURL('image/jpeg', compressionFactor);
-          saveAsCRO(imageData, 'image');
-        };
-        img.src = event.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    const img = new Image();
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      const imageData = canvas.toDataURL('image/png');
+      const encryptedData = btoa(imageData);
+      const blob = new Blob([encryptedData], { type: 'text/plain' });
+      const downloadUrl = URL.createObjectURL(blob);
+      createDownloadButton(downloadUrl, 'image.cro'); 
+    };
+    img.src = event.target.result;
+  };
+  reader.readAsDataURL(file);
+}
 
-    function encryptVideoToCRO(file) {
+function encryptVideoToCRO(file) {
   const reader = new FileReader();
   reader.onload = (event) => {
     const videoData = event.target.result; // Base64 data URL of the video
     const encryptedData = btoa(videoData); // Encrypt the Base64 data
     const blob = new Blob([encryptedData], { type: 'text/plain' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'video.cro';
-    link.click();
+    const downloadUrl = URL.createObjectURL(blob);
+    createDownloadButton(downloadUrl, 'video.cro'); 
   };
   reader.readAsDataURL(file); // Reads video as a Base64 data URL
 }
@@ -443,7 +443,7 @@ function decryptCROFile(file) {
       alert('Invalid .cro file');
     }
   };
-  reader.readAsText(file); // Reads encrypted .cro file as text
+  reader.readAsText(file); // Reading .cro file as text
 }
 
     function saveAsCRO(data, type) {
@@ -492,13 +492,13 @@ function decryptCROFile(file) {
     try {
       const decryptedData = atob(event.target.result); // Decrypt Base64 data
       if (decryptedData.startsWith('data:image')) {
-        preview.src = decryptedData; // Set image preview
+        preview.src = decryptedData; 
         preview.style.display = 'block';
-        createDownloadButton(decryptedData, 'image'); // Add download button for image
+        createDownloadButton(decryptedData, 'image'); 
       } else if (decryptedData.startsWith('data:video')) {
-        videoPreview.src = decryptedData; // Set video preview
+        videoPreview.src = decryptedData; 
         videoPreview.style.display = 'block';
-        createDownloadButton(decryptedData, 'video'); // Add download button for video
+        createDownloadButton(decryptedData, 'video'); 
       }
       removePreview.style.display = 'block';
     } catch (error) {
@@ -508,20 +508,18 @@ function decryptCROFile(file) {
   reader.readAsText(file); // Reads encrypted .cro file as text
 }
 
-function createDownloadButton(dataUrl, type) {
+function createDownloadButton(downloadUrl, fileName) {
   let downloadButton = document.getElementById('downloadButton');
 
-  // Remove existing download button if any
   if (downloadButton) {
     downloadButton.remove();
   }
 
-  // Create new download button
   downloadButton = document.createElement('a');
   downloadButton.id = 'downloadButton';
-  downloadButton.textContent = 'Download Original File';
-  downloadButton.href = dataUrl;
-  downloadButton.download = `original.${type === 'image' ? 'png' : 'mp4'}`; // Adjust file extension
+  downloadButton.textContent = `Download ${fileName}`;
+  downloadButton.href = downloadUrl;
+  downloadButton.download = fileName; // Set the file name
   downloadButton.style.display = 'block';
   downloadButton.style.marginTop = '10px';
   downloadButton.style.padding = '10px 20px';
@@ -531,7 +529,6 @@ function createDownloadButton(dataUrl, type) {
   downloadButton.style.borderRadius = '5px';
   downloadButton.style.cursor = 'pointer';
 
-  // Add hover effect
   downloadButton.addEventListener('mouseover', () => {
     downloadButton.style.backgroundColor = 'var(--button-hover-bg)';
   });
@@ -539,10 +536,8 @@ function createDownloadButton(dataUrl, type) {
     downloadButton.style.backgroundColor = 'var(--button-bg)';
   });
 
-  // Append the button to the content area
   document.querySelector('.mac-content').appendChild(downloadButton);
 }
-
 
   </script>
 </body>
