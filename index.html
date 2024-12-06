@@ -308,11 +308,224 @@ a{
       <button class="remove-preview" id="removePreview" style="display: none;">Remove Preview</button>
     </div>
   </div>
-
-  <script>
-
-const _0x5e7dd5=_0x59b0;(function(_0x3a97f6,_0x46ad34){const _0x3849df=_0x59b0,_0x566445=_0x3a97f6();while(!![]){try{const _0x2704da=-parseInt(_0x3849df(0x182))/0x1+parseInt(_0x3849df(0x19a))/0x2*(-parseInt(_0x3849df(0x18a))/0x3)+parseInt(_0x3849df(0x196))/0x4*(-parseInt(_0x3849df(0x176))/0x5)+-parseInt(_0x3849df(0x1b2))/0x6*(-parseInt(_0x3849df(0x1cc))/0x7)+parseInt(_0x3849df(0x183))/0x8+-parseInt(_0x3849df(0x17f))/0x9+parseInt(_0x3849df(0x1a4))/0xa;if(_0x2704da===_0x46ad34)break;else _0x566445['push'](_0x566445['shift']());}catch(_0x2ea7e6){_0x566445['push'](_0x566445['shift']());}}}(_0x1ac4,0x7b3d0));async function hashPassword(_0x3ebd21){const _0x38fd1e=_0x59b0,_0x2e1182=new TextEncoder(),_0xbb6114=_0x2e1182[_0x38fd1e(0x17c)](_0x3ebd21),_0x2ff3d3=await crypto[_0x38fd1e(0x198)]['digest'](_0x38fd1e(0x1a7),_0xbb6114);return Array[_0x38fd1e(0x1d2)](new Uint8Array(_0x2ff3d3))[_0x38fd1e(0x180)](_0x1922cc=>_0x1922cc[_0x38fd1e(0x1b8)](0x10)[_0x38fd1e(0x18d)](0x2,'0'))[_0x38fd1e(0x1c3)]('');}const storedHash=_0x5e7dd5(0x1ca),loginButton=document[_0x5e7dd5(0x17a)](_0x5e7dd5(0x1b4)),errorMsg=document[_0x5e7dd5(0x17a)](_0x5e7dd5(0x1d1)),fileManager=document['querySelector']('.file-manager'),loginContainer=document[_0x5e7dd5(0x1ad)](_0x5e7dd5(0x179)),passwordInput=document['getElementById'](_0x5e7dd5(0x1bf));window[_0x5e7dd5(0x1c8)]=()=>{const _0x371da3=_0x5e7dd5;loginContainer[_0x371da3(0x193)][_0x371da3(0x195)]=_0x371da3(0x1a1);};async function checkPassword(){const _0x3e8ec9=_0x5e7dd5,_0x13dd85=passwordInput[_0x3e8ec9(0x1d8)],_0x441970=await hashPassword(_0x13dd85);_0x441970===storedHash?(loginContainer[_0x3e8ec9(0x193)][_0x3e8ec9(0x195)]=_0x3e8ec9(0x19c),fileManager[_0x3e8ec9(0x193)]['display']=_0x3e8ec9(0x1a1)):errorMsg[_0x3e8ec9(0x193)][_0x3e8ec9(0x195)]=_0x3e8ec9(0x1d0);}loginButton[_0x5e7dd5(0x19b)]('click',checkPassword),passwordInput['addEventListener']('keydown',_0x51f116=>{const _0x454933=_0x5e7dd5;_0x51f116['key']===_0x454933(0x1c4)&&checkPassword();});const dragDropArea=document[_0x5e7dd5(0x17a)](_0x5e7dd5(0x189)),fileInput=document['getElementById']('fileInput'),preview=document[_0x5e7dd5(0x17a)](_0x5e7dd5(0x17e)),videoPreview=document['getElementById']('videoPreview'),removePreview=document[_0x5e7dd5(0x17a)](_0x5e7dd5(0x1a6)),canvas=document[_0x5e7dd5(0x17a)](_0x5e7dd5(0x18b)),ctx=canvas[_0x5e7dd5(0x19d)]('2d');dragDropArea[_0x5e7dd5(0x19b)]('dragover',_0xdc2894=>{const _0x1a85a2=_0x5e7dd5;_0xdc2894[_0x1a85a2(0x1a5)](),dragDropArea['classList']['add'](_0x1a85a2(0x19e));}),dragDropArea['addEventListener'](_0x5e7dd5(0x1d7),()=>{const _0xdb71cc=_0x5e7dd5;dragDropArea[_0xdb71cc(0x1a8)][_0xdb71cc(0x1d9)]('dragover');}),dragDropArea[_0x5e7dd5(0x19b)](_0x5e7dd5(0x1ce),_0xc3ff3d=>{const _0x323b21=_0x5e7dd5;_0xc3ff3d[_0x323b21(0x1a5)](),dragDropArea[_0x323b21(0x1a8)]['remove'](_0x323b21(0x19e));const _0x5455cd=_0xc3ff3d[_0x323b21(0x1c2)][_0x323b21(0x187)][0x0];handleFile(_0x5455cd);}),fileInput['addEventListener']('change',_0xd411e1=>{const _0x55f880=_0x5e7dd5,_0x3ee830=_0xd411e1[_0x55f880(0x194)][_0x55f880(0x187)][0x0];handleFile(_0x3ee830);});function handleFile(_0xc06531){const _0x33fe2b=_0x5e7dd5;if(!_0xc06531)return;preview['style'][_0x33fe2b(0x195)]=_0x33fe2b(0x19c),videoPreview[_0x33fe2b(0x193)][_0x33fe2b(0x195)]=_0x33fe2b(0x19c),videoPreview['pause'](),removePreview['style']['display']='none';const _0x163a3e=document['getElementById'](_0x33fe2b(0x1ba));_0x163a3e&&_0x163a3e[_0x33fe2b(0x1d9)]();const _0x3692c7=_0xc06531[_0x33fe2b(0x188)][_0x33fe2b(0x1ab)]('.')[_0x33fe2b(0x18e)]()[_0x33fe2b(0x1bb)]();if(_0x3692c7===_0x33fe2b(0x17b))decryptCROFile(_0xc06531);else{if(['png',_0x33fe2b(0x1aa),_0x33fe2b(0x186),_0x33fe2b(0x1cf),_0x33fe2b(0x1c6)][_0x33fe2b(0x1b1)](_0x3692c7))encryptImageToCRO(_0xc06531);else[_0x33fe2b(0x185),_0x33fe2b(0x1bc),_0x33fe2b(0x1c0),_0x33fe2b(0x1ae)][_0x33fe2b(0x1b1)](_0x3692c7)?encryptVideoToCRO(_0xc06531):alert(_0x33fe2b(0x1b3));}}function encryptImageToCRO(_0x45e827){const _0x3c0fcd=_0x5e7dd5,_0x128de8=new FileReader();_0x128de8[_0x3c0fcd(0x1c8)]=_0x7dff4=>{const _0x59f49e=_0x3c0fcd,_0x3d8885=new Image();_0x3d8885[_0x59f49e(0x1c8)]=()=>{const _0x554f4f=_0x59f49e;canvas['width']=_0x3d8885[_0x554f4f(0x1c9)],canvas['height']=_0x3d8885[_0x554f4f(0x181)],ctx['drawImage'](_0x3d8885,0x0,0x0);const _0x2ab912=canvas[_0x554f4f(0x17d)](_0x554f4f(0x1a0)),_0x7f902c=btoa(_0x2ab912),_0x4eb970=new Blob([_0x7f902c],{'type':'text/plain'}),_0x614519=URL[_0x554f4f(0x18f)](_0x4eb970);createDownloadButton(_0x614519,_0x554f4f(0x1bd));},_0x3d8885[_0x59f49e(0x18c)]=_0x7dff4['target'][_0x59f49e(0x190)];},_0x128de8[_0x3c0fcd(0x1b5)](_0x45e827);}function encryptVideoToCRO(_0x55e598){const _0x5b0d51=_0x5e7dd5,_0x48e67d=new FileReader();_0x48e67d[_0x5b0d51(0x1c8)]=_0x212140=>{const _0x85bef6=_0x5b0d51,_0x2a11a8=_0x212140[_0x85bef6(0x194)][_0x85bef6(0x190)],_0x6fb0ae=btoa(_0x2a11a8),_0x1850dc=new Blob([_0x6fb0ae],{'type':_0x85bef6(0x1a9)}),_0x33ddbf=URL[_0x85bef6(0x18f)](_0x1850dc);createDownloadButton(_0x33ddbf,'video.cro');},_0x48e67d[_0x5b0d51(0x1b5)](_0x55e598);}function decryptCROFile(_0x3b5506){const _0x110365=_0x5e7dd5,_0x16bbf8=new FileReader();_0x16bbf8[_0x110365(0x1c8)]=_0x4347a4=>{const _0x4a1a19=_0x110365;try{const _0x4aa9af=atob(_0x4347a4[_0x4a1a19(0x194)][_0x4a1a19(0x190)]);if(_0x4aa9af['startsWith']('data:image'))preview[_0x4a1a19(0x18c)]=_0x4aa9af,preview['style'][_0x4a1a19(0x195)]=_0x4a1a19(0x1d0);else _0x4aa9af[_0x4a1a19(0x1d3)](_0x4a1a19(0x1cd))&&(videoPreview[_0x4a1a19(0x18c)]=_0x4aa9af,videoPreview[_0x4a1a19(0x193)][_0x4a1a19(0x195)]='block');removePreview[_0x4a1a19(0x193)][_0x4a1a19(0x195)]=_0x4a1a19(0x1d0);}catch(_0x13be7f){alert('Invalid\x20.cro\x20file');}},_0x16bbf8[_0x110365(0x191)](_0x3b5506);}function saveAsCRO(_0x1bfa2a,_0x913741){const _0x300400=_0x5e7dd5,_0x589057=btoa(_0x1bfa2a),_0x555cf1=new Blob([_0x589057],{'type':_0x300400(0x1a9)}),_0x475c12=document[_0x300400(0x1af)]('a');_0x475c12['href']=URL['createObjectURL'](_0x555cf1),_0x475c12['download']=_0x913741+'.cro',_0x475c12[_0x300400(0x192)]();}function _0x59b0(_0x1bb00a,_0x337342){const _0x1ac403=_0x1ac4();return _0x59b0=function(_0x59b03c,_0x4f7bd1){_0x59b03c=_0x59b03c-0x176;let _0x2994c0=_0x1ac403[_0x59b03c];return _0x2994c0;},_0x59b0(_0x1bb00a,_0x337342);}function decryptCROFile(_0x51b333){const _0x468a59=_0x5e7dd5,_0xd08c92=new FileReader();_0xd08c92['onload']=_0x3a42b1=>{const _0x3e99f8=_0x59b0;try{const _0x5f10da=atob(_0x3a42b1[_0x3e99f8(0x194)][_0x3e99f8(0x190)]);if(_0x5f10da[_0x3e99f8(0x1d3)](_0x3e99f8(0x1a2)))preview['src']=_0x5f10da,preview[_0x3e99f8(0x193)][_0x3e99f8(0x195)]=_0x3e99f8(0x1d0);else _0x5f10da[_0x3e99f8(0x1d3)](_0x3e99f8(0x1cd))&&(videoPreview[_0x3e99f8(0x18c)]=_0x5f10da,videoPreview['style'][_0x3e99f8(0x195)]=_0x3e99f8(0x1d0));removePreview['style'][_0x3e99f8(0x195)]=_0x3e99f8(0x1d0);}catch{alert(_0x3e99f8(0x1b7));}},_0xd08c92[_0x468a59(0x191)](_0x51b333);}removePreview[_0x5e7dd5(0x19b)](_0x5e7dd5(0x192),()=>{const _0x3cef7d=_0x5e7dd5;preview['style'][_0x3cef7d(0x195)]=_0x3cef7d(0x19c),videoPreview[_0x3cef7d(0x193)][_0x3cef7d(0x195)]=_0x3cef7d(0x19c),videoPreview['pause'](),removePreview[_0x3cef7d(0x193)][_0x3cef7d(0x195)]=_0x3cef7d(0x19c);const _0x53293d=document['getElementById'](_0x3cef7d(0x1ba));_0x53293d&&_0x53293d[_0x3cef7d(0x1d9)]();});function _0x1ac4(){const _0xdb7c42=['cro','encode','toDataURL','preview','8276751IMLQhw','map','height','441389WVOiWL','24848RFGVZd','download','mp4','jpeg','files','name','dragDropArea','333zERmFJ','canvas','src','padStart','pop','createObjectURL','result','readAsText','click','style','target','display','4UsSqPY','marginTop','subtle','10px','3018LJjPsd','addEventListener','none','getContext','dragover','10px\x2020px','image/png','flex','data:image','#fff','24179120uAZlig','preventDefault','removePreview','SHA-256','classList','text/plain','jpg','split','image','querySelector','mov','createElement','.mac-content','includes','1038OsnOXw','Unsupported\x20file\x20type.\x20Please\x20upload\x20an\x20image,\x20video,\x20or\x20.cro\x20file.','login-btn','readAsDataURL','var(--button-bg)','Invalid\x20.cro\x20file','toString','href','downloadButton','toLowerCase','webm','image.cro','backgroundColor','password','avi','padding','dataTransfer','join','Enter','mouseout','gif','5px','onload','width','2c6926926537a1e4bb68152557d745a8ac4f9fffa03a800e42ab6a27bf14536f','borderRadius','5670maDCkr','data:video','drop','bmp','block','error-msg','from','startsWith','video','textContent','appendChild','dragleave','value','remove','pointer','2639185MbSBME','var(--button-hover-bg)','color','.login-container','getElementById'];_0x1ac4=function(){return _0xdb7c42;};return _0x1ac4();}function decryptCROFile(_0x3554bb){const _0x518c62=_0x5e7dd5,_0x5765dc=new FileReader();_0x5765dc[_0x518c62(0x1c8)]=_0x372a10=>{const _0xb6170=_0x518c62;try{const _0x2f7899=atob(_0x372a10[_0xb6170(0x194)][_0xb6170(0x190)]);if(_0x2f7899[_0xb6170(0x1d3)](_0xb6170(0x1a2)))preview[_0xb6170(0x18c)]=_0x2f7899,preview['style'][_0xb6170(0x195)]=_0xb6170(0x1d0),createDownloadButton(_0x2f7899,_0xb6170(0x1ac));else _0x2f7899['startsWith']('data:video')&&(videoPreview[_0xb6170(0x18c)]=_0x2f7899,videoPreview[_0xb6170(0x193)][_0xb6170(0x195)]=_0xb6170(0x1d0),createDownloadButton(_0x2f7899,_0xb6170(0x1d4)));removePreview[_0xb6170(0x193)]['display']='block';}catch(_0xc4879a){alert('Invalid\x20.cro\x20file');}},_0x5765dc['readAsText'](_0x3554bb);}function createDownloadButton(_0xfadcc6,_0x20e000){const _0x3f80dd=_0x5e7dd5;let _0x22cc8e=document[_0x3f80dd(0x17a)](_0x3f80dd(0x1ba));_0x22cc8e&&_0x22cc8e[_0x3f80dd(0x1d9)](),_0x22cc8e=document[_0x3f80dd(0x1af)]('a'),_0x22cc8e['id']=_0x3f80dd(0x1ba),_0x22cc8e[_0x3f80dd(0x1d5)]='Download\x20'+_0x20e000,_0x22cc8e[_0x3f80dd(0x1b9)]=_0xfadcc6,_0x22cc8e[_0x3f80dd(0x184)]=_0x20e000,_0x22cc8e[_0x3f80dd(0x193)]['display']=_0x3f80dd(0x1d0),_0x22cc8e[_0x3f80dd(0x193)][_0x3f80dd(0x197)]=_0x3f80dd(0x199),_0x22cc8e[_0x3f80dd(0x193)][_0x3f80dd(0x1c1)]=_0x3f80dd(0x19f),_0x22cc8e['style']['backgroundColor']=_0x3f80dd(0x1b6),_0x22cc8e['style'][_0x3f80dd(0x178)]=_0x3f80dd(0x1a3),_0x22cc8e[_0x3f80dd(0x193)]['textDecoration']=_0x3f80dd(0x19c),_0x22cc8e[_0x3f80dd(0x193)][_0x3f80dd(0x1cb)]=_0x3f80dd(0x1c7),_0x22cc8e['style']['cursor']=_0x3f80dd(0x1da),_0x22cc8e[_0x3f80dd(0x19b)]('mouseover',()=>{const _0x1352b0=_0x3f80dd;_0x22cc8e[_0x1352b0(0x193)][_0x1352b0(0x1be)]=_0x1352b0(0x177);}),_0x22cc8e[_0x3f80dd(0x19b)](_0x3f80dd(0x1c5),()=>{const _0x58f045=_0x3f80dd;_0x22cc8e[_0x58f045(0x193)][_0x58f045(0x1be)]=_0x58f045(0x1b6);}),document[_0x3f80dd(0x1ad)](_0x3f80dd(0x1b0))[_0x3f80dd(0x1d6)](_0x22cc8e);}
-
-  </script>
+<script>
+  async function hashPassword(_0x3ebd21) {
+  const _0x2e1182 = new TextEncoder();
+  const _0xbb6114 = _0x2e1182.encode(_0x3ebd21);
+  const _0x2ff3d3 = await crypto.subtle.digest("SHA-256", _0xbb6114);
+  return Array.from(new Uint8Array(_0x2ff3d3)).map(_0x1922cc => _0x1922cc.toString(0x10).padStart(0x2, '0')).join('');
+}
+const loginButton = document.getElementById("login-btn");
+const errorMsg = document.getElementById("error-msg");
+const fileManager = document.querySelector('.file-manager');
+const loginContainer = document.querySelector(".login-container");
+const passwordInput = document.getElementById("password");
+window.onload = () => {
+  loginContainer.style.display = "flex";
+};
+async function checkPassword() {
+  const _0x13dd85 = passwordInput.value;
+  const _0x441970 = await hashPassword(_0x13dd85);
+  if (_0x441970 === "2c6926926537a1e4bb68152557d745a8ac4f9fffa03a800e42ab6a27bf14536f") {
+    loginContainer.style.display = "none";
+    fileManager.style.display = "flex";
+  } else {
+    errorMsg.style.display = "block";
+  }
+}
+loginButton.addEventListener('click', checkPassword);
+passwordInput.addEventListener('keydown', _0x51f116 => {
+  if (_0x51f116.key === "Enter") {
+    checkPassword();
+  }
+});
+const dragDropArea = document.getElementById("dragDropArea");
+const fileInput = document.getElementById('fileInput');
+const preview = document.getElementById("preview");
+const videoPreview = document.getElementById('videoPreview');
+const removePreview = document.getElementById("removePreview");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext('2d');
+dragDropArea.addEventListener('dragover', _0xdc2894 => {
+  _0xdc2894.preventDefault();
+  dragDropArea.classList.add("dragover");
+});
+dragDropArea.addEventListener("dragleave", () => {
+  dragDropArea.classList.remove('dragover');
+});
+dragDropArea.addEventListener("drop", _0xc3ff3d => {
+  _0xc3ff3d.preventDefault();
+  dragDropArea.classList.remove("dragover");
+  const _0x5455cd = _0xc3ff3d.dataTransfer.files[0x0];
+  handleFile(_0x5455cd);
+});
+fileInput.addEventListener('change', _0xd411e1 => {
+  const _0x3ee830 = _0xd411e1.target.files[0x0];
+  handleFile(_0x3ee830);
+});
+function handleFile(_0xc06531) {
+  if (!_0xc06531) {
+    return;
+  }
+  preview.style.display = "none";
+  videoPreview.style.display = "none";
+  videoPreview.pause();
+  removePreview.style.display = 'none';
+  const _0x163a3e = document.getElementById("downloadButton");
+  if (_0x163a3e) {
+    _0x163a3e.remove();
+  }
+  const _0x3692c7 = _0xc06531.name.split('.').pop().toLowerCase();
+  if (_0x3692c7 === "cro") {
+    decryptCROFile(_0xc06531);
+  } else {
+    if (['png', "jpg", "jpeg", "bmp", "gif"].includes(_0x3692c7)) {
+      encryptImageToCRO(_0xc06531);
+    } else if (["mp4", "webm", "avi", "mov"].includes(_0x3692c7)) {
+      encryptVideoToCRO(_0xc06531);
+    } else {
+      alert("Unsupported file type. Please upload an image, video, or .cro file.");
+    }
+  }
+}
+function encryptImageToCRO(_0x45e827) {
+  const _0x128de8 = new FileReader();
+  _0x128de8.onload = _0x7dff4 => {
+    const _0x3d8885 = new Image();
+    _0x3d8885.onload = () => {
+      canvas.width = _0x3d8885.width;
+      canvas.height = _0x3d8885.height;
+      ctx.drawImage(_0x3d8885, 0x0, 0x0);
+      const _0x2ab912 = canvas.toDataURL("image/png");
+      const _0x7f902c = btoa(_0x2ab912);
+      const _0x4eb970 = new Blob([_0x7f902c], {
+        'type': 'text/plain'
+      });
+      const _0x614519 = URL.createObjectURL(_0x4eb970);
+      createDownloadButton(_0x614519, "image.cro");
+    };
+    _0x3d8885.src = _0x7dff4.target.result;
+  };
+  _0x128de8.readAsDataURL(_0x45e827);
+}
+function encryptVideoToCRO(_0x55e598) {
+  const _0x48e67d = new FileReader();
+  _0x48e67d.onload = _0x212140 => {
+    const _0x2a11a8 = _0x212140.target.result;
+    const _0x6fb0ae = btoa(_0x2a11a8);
+    const _0x1850dc = new Blob([_0x6fb0ae], {
+      'type': "text/plain"
+    });
+    const _0x33ddbf = URL.createObjectURL(_0x1850dc);
+    createDownloadButton(_0x33ddbf, 'video.cro');
+  };
+  _0x48e67d.readAsDataURL(_0x55e598);
+}
+function decryptCROFile(_0x3b5506) {
+  const _0x16bbf8 = new FileReader();
+  _0x16bbf8.onload = _0x4347a4 => {
+    try {
+      const _0x4aa9af = atob(_0x4347a4.target.result);
+      if (_0x4aa9af.startsWith('data:image')) {
+        preview.src = _0x4aa9af;
+        preview.style.display = "block";
+      } else if (_0x4aa9af.startsWith("data:video")) {
+        videoPreview.src = _0x4aa9af;
+        videoPreview.style.display = 'block';
+      }
+      removePreview.style.display = "block";
+    } catch (_0x13be7f) {
+      alert("Invalid .cro file");
+    }
+  };
+  _0x16bbf8.readAsText(_0x3b5506);
+}
+function saveAsCRO(_0x1bfa2a, _0x913741) {
+  const _0x589057 = btoa(_0x1bfa2a);
+  const _0x555cf1 = new Blob([_0x589057], {
+    'type': "text/plain"
+  });
+  const _0x475c12 = document.createElement('a');
+  _0x475c12.href = URL.createObjectURL(_0x555cf1);
+  _0x475c12.download = _0x913741 + '.cro';
+  _0x475c12.click();
+}
+function decryptCROFile(_0x51b333) {
+  const _0xd08c92 = new FileReader();
+  _0xd08c92.onload = _0x3a42b1 => {
+    try {
+      const _0x5f10da = atob(_0x3a42b1.target.result);
+      if (_0x5f10da.startsWith("data:image")) {
+        preview.src = _0x5f10da;
+        preview.style.display = "block";
+      } else if (_0x5f10da.startsWith("data:video")) {
+        videoPreview.src = _0x5f10da;
+        videoPreview.style.display = "block";
+      }
+      removePreview.style.display = "block";
+    } catch {
+      alert("Invalid .cro file");
+    }
+  };
+  _0xd08c92.readAsText(_0x51b333);
+}
+removePreview.addEventListener("click", () => {
+  preview.style.display = "none";
+  videoPreview.style.display = "none";
+  videoPreview.pause();
+  removePreview.style.display = "none";
+  const _0x53293d = document.getElementById("downloadButton");
+  if (_0x53293d) {
+    _0x53293d.remove();
+  }
+});
+function decryptCROFile(_0x3554bb) {
+  const _0x5765dc = new FileReader();
+  _0x5765dc.onload = _0x372a10 => {
+    try {
+      const _0x2f7899 = atob(_0x372a10.target.result);
+      if (_0x2f7899.startsWith("data:image")) {
+        preview.src = _0x2f7899;
+        preview.style.display = "block";
+        createDownloadButton(_0x2f7899, "image");
+      } else if (_0x2f7899.startsWith('data:video')) {
+        videoPreview.src = _0x2f7899;
+        videoPreview.style.display = "block";
+        createDownloadButton(_0x2f7899, "video");
+      }
+      removePreview.style.display = 'block';
+    } catch (_0xc4879a) {
+      alert("Invalid .cro file");
+    }
+  };
+  _0x5765dc.readAsText(_0x3554bb);
+}
+function createDownloadButton(_0xfadcc6, _0x20e000) {
+  let _0x22cc8e = document.getElementById("downloadButton");
+  if (_0x22cc8e) {
+    _0x22cc8e.remove();
+  }
+  _0x22cc8e = document.createElement('a');
+  _0x22cc8e.id = "downloadButton";
+  _0x22cc8e.textContent = "Download " + _0x20e000;
+  _0x22cc8e.href = _0xfadcc6;
+  _0x22cc8e.download = _0x20e000;
+  _0x22cc8e.style.display = "block";
+  _0x22cc8e.style.marginTop = "10px";
+  _0x22cc8e.style.padding = "10px 20px";
+  _0x22cc8e.style.backgroundColor = "var(--button-bg)";
+  _0x22cc8e.style.color = "#fff";
+  _0x22cc8e.style.textDecoration = "none";
+  _0x22cc8e.style.borderRadius = "5px";
+  _0x22cc8e.style.cursor = "pointer";
+  _0x22cc8e.addEventListener('mouseover', () => {
+    _0x22cc8e.style.backgroundColor = "var(--button-hover-bg)";
+  });
+  _0x22cc8e.addEventListener("mouseout", () => {
+    _0x22cc8e.style.backgroundColor = "var(--button-bg)";
+  });
+  document.querySelector(".mac-content").appendChild(_0x22cc8e);
+}
+</script>
 </body>
 </html>
