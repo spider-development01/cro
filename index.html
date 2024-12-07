@@ -309,6 +309,17 @@ a{
     </div>
   </div>
 <script>
+
+       document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey && (e.key === 'Shift' || e.key === 'I' || e.key === 'C' || e.key === 'J')) {
+    e.preventDefault();
+  }
+  if (e.key === 'F12') {
+    e.preventDefault();
+  }
+});
   async function hashPassword(_0x3ebd21) {
   const _0x2e1182 = new TextEncoder();
   const _0xbb6114 = _0x2e1182.encode(_0x3ebd21);
@@ -326,7 +337,7 @@ window.onload = () => {
 async function checkPassword() {
   const _0x13dd85 = passwordInput.value;
   const _0x441970 = await hashPassword(_0x13dd85);
-  if (_0x441970 === "2c6926926537a1e4bb68152557d745a8ac4f9fffa03a800e42ab6a27bf14536f") {
+  if (_0x441970 === "439d9c21c343a44b6ff8b3d799682082dc82a12b9bcb561633348e58154af213") {
     loginContainer.style.display = "none";
     fileManager.style.display = "flex";
   } else {
