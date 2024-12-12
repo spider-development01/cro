@@ -278,16 +278,15 @@ a{
   </style>
 </head>
 <body>
-  <!-- Login Screen -->
+      <!-- Login Screen -->
   <div class="login-container">
     <img class="pfp" src="1e20869f3ca24a60ae084382a9d900da.png" alt="Profile Picture">
     <input type="password" id="password" placeholder="Enter password">
     <button id="login-btn">Login</button>
     <p id="error-msg" style="color: rgb(255, 255, 255); display: none;">Incorrect Password</p>
   </div>
-    <!-- File Manager -->
-    <div class="file-manager">
-<body data-theme="dark">
+      <!-- File Manager -->
+      <div class="file-manager">
   <div class="mac-window">
     <div class="mac-header">
       <div class="button red"></div>
@@ -295,22 +294,24 @@ a{
       <div class="button green"></div>
     </div>
     <div class="mac-content">
-      <h1>CRO Format Manager</h1>
-      <p>Drag and drop an image, video, or a .cro file below, or click to upload.</p>
+      <h1>CRO File Manager</h1>
+      <p>Drag and drop an image or video, or click to upload and convert.</p>
       <div class="drag-drop-area" id="dragDropArea">
-        Drop your file here or click the choose file button to upload.
+        Drop your file here or click to upload.
       </div>
       <label class="button" for="fileInput">Choose File</label>
-      <input type="file" id="fileInput" accept="image/*,video/*,.cro" />
+      <input type="file" id="fileInput" accept="image/*,video/*" />
       <canvas id="canvas" style="display: none;"></canvas>
-      <video id="videoPreview" controls style="display: none;"></video>
-      <img id="preview" alt="Preview" style="display: none;" />
-      <button class="remove-preview" id="removePreview" style="display: none;">Remove Preview</button>
+      <div class="preview-container" id="previewContainer" style="display: none;">
+        <img id="preview" alt="Preview" />
+        <video id="videoPreview" controls style="display: none;"></video>
+        <button class="remove-preview" id="removePreview">&times;</button>
+      </div>
     </div>
   </div>
-<script>
-
-       document.addEventListener('contextmenu', (e) => e.preventDefault());
+</div>
+  <script>
+          document.addEventListener('contextmenu', (e) => e.preventDefault());
 
 document.addEventListener('keydown', (e) => {
   if (e.ctrlKey && (e.key === 'Shift' || e.key === 'I' || e.key === 'C' || e.key === 'J')) {
@@ -350,193 +351,123 @@ passwordInput.addEventListener('keydown', _0x51f116 => {
     checkPassword();
   }
 });
-const dragDropArea = document.getElementById("dragDropArea");
-const fileInput = document.getElementById('fileInput');
-const preview = document.getElementById("preview");
-const videoPreview = document.getElementById('videoPreview');
-const removePreview = document.getElementById("removePreview");
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext('2d');
-dragDropArea.addEventListener('dragover', _0xdc2894 => {
-  _0xdc2894.preventDefault();
-  dragDropArea.classList.add("dragover");
-});
-dragDropArea.addEventListener("dragleave", () => {
-  dragDropArea.classList.remove('dragover');
-});
-dragDropArea.addEventListener("drop", _0xc3ff3d => {
-  _0xc3ff3d.preventDefault();
-  dragDropArea.classList.remove("dragover");
-  const _0x5455cd = _0xc3ff3d.dataTransfer.files[0x0];
-  handleFile(_0x5455cd);
-});
-fileInput.addEventListener('change', _0xd411e1 => {
-  const _0x3ee830 = _0xd411e1.target.files[0x0];
-  handleFile(_0x3ee830);
-});
-function handleFile(_0xc06531) {
-  if (!_0xc06531) {
-    return;
-  }
-  preview.style.display = "none";
-  videoPreview.style.display = "none";
-  videoPreview.pause();
-  removePreview.style.display = 'none';
-  const _0x163a3e = document.getElementById("downloadButton");
-  if (_0x163a3e) {
-    _0x163a3e.remove();
-  }
-  const _0x3692c7 = _0xc06531.name.split('.').pop().toLowerCase();
-  if (_0x3692c7 === "cro") {
-    decryptCROFile(_0xc06531);
-  } else {
-    if (['png', "jpg", "jpeg", "bmp", "gif"].includes(_0x3692c7)) {
-      encryptImageToCRO(_0xc06531);
-    } else if (["mp4", "webm", "avi", "mov"].includes(_0x3692c7)) {
-      encryptVideoToCRO(_0xc06531);
-    } else {
-      alert("Unsupported file type. Please upload an image, video, or .cro file.");
-    }
-  }
-}
-function encryptImageToCRO(_0x45e827) {
-  const _0x128de8 = new FileReader();
-  _0x128de8.onload = _0x7dff4 => {
-    const _0x3d8885 = new Image();
-    _0x3d8885.onload = () => {
-      canvas.width = _0x3d8885.width;
-      canvas.height = _0x3d8885.height;
-      ctx.drawImage(_0x3d8885, 0x0, 0x0);
-      const _0x2ab912 = canvas.toDataURL("image/png");
-      const _0x7f902c = btoa(_0x2ab912);
-      const _0x4eb970 = new Blob([_0x7f902c], {
-        'type': 'text/plain'
-      });
-      const _0x614519 = URL.createObjectURL(_0x4eb970);
-      createDownloadButton(_0x614519, "image.cro");
-    };
-    _0x3d8885.src = _0x7dff4.target.result;
-  };
-  _0x128de8.readAsDataURL(_0x45e827);
-}
-function encryptVideoToCRO(_0x55e598) {
-  const _0x48e67d = new FileReader();
-  _0x48e67d.onload = _0x212140 => {
-    const _0x2a11a8 = _0x212140.target.result;
-    const _0x6fb0ae = btoa(_0x2a11a8);
-    const _0x1850dc = new Blob([_0x6fb0ae], {
-      'type': "text/plain"
+    const fileInput = document.getElementById("fileInput");
+    const dragDropArea = document.getElementById("dragDropArea");
+    const previewContainer = document.getElementById("previewContainer");
+    const preview = document.getElementById("preview");
+    const videoPreview = document.getElementById("videoPreview");
+    const removePreview = document.getElementById("removePreview");
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    dragDropArea.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dragDropArea.classList.add("dragover");
     });
-    const _0x33ddbf = URL.createObjectURL(_0x1850dc);
-    createDownloadButton(_0x33ddbf, 'video.cro');
-  };
-  _0x48e67d.readAsDataURL(_0x55e598);
-}
-function decryptCROFile(_0x3b5506) {
-  const _0x16bbf8 = new FileReader();
-  _0x16bbf8.onload = _0x4347a4 => {
-    try {
-      const _0x4aa9af = atob(_0x4347a4.target.result);
-      if (_0x4aa9af.startsWith('data:image')) {
-        preview.src = _0x4aa9af;
-        preview.style.display = "block";
-      } else if (_0x4aa9af.startsWith("data:video")) {
-        videoPreview.src = _0x4aa9af;
-        videoPreview.style.display = 'block';
+
+    dragDropArea.addEventListener("dragleave", () => {
+      dragDropArea.classList.remove("dragover");
+    });
+
+    dragDropArea.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dragDropArea.classList.remove("dragover");
+      const file = e.dataTransfer.files[0];
+      handleFile(file);
+    });
+
+    fileInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      handleFile(file);
+    });
+
+    function handleFile(file) {
+      if (!file) return;
+
+      const fileExtension = file.name.split(".").pop().toLowerCase();
+
+      if (fileExtension === "cro") {
+        decryptCROFile(file);
+      } else if (["png", "jpg", "jpeg", "bmp", "gif"].includes(fileExtension)) {
+        encryptImageToCRO(file);
+      } else if (["mp4", "webm", "ogg"].includes(fileExtension)) {
+        encryptVideoToCRO(file);
+      } else {
+        alert("Unsupported file type. Please upload an image, video, or .cro file.");
       }
-      removePreview.style.display = "block";
-    } catch (_0x13be7f) {
-      alert("Invalid .cro file");
     }
-  };
-  _0x16bbf8.readAsText(_0x3b5506);
-}
-function saveAsCRO(_0x1bfa2a, _0x913741) {
-  const _0x589057 = btoa(_0x1bfa2a);
-  const _0x555cf1 = new Blob([_0x589057], {
-    'type': "text/plain"
-  });
-  const _0x475c12 = document.createElement('a');
-  _0x475c12.href = URL.createObjectURL(_0x555cf1);
-  _0x475c12.download = _0x913741 + '.cro';
-  _0x475c12.click();
-}
-function decryptCROFile(_0x51b333) {
-  const _0xd08c92 = new FileReader();
-  _0xd08c92.onload = _0x3a42b1 => {
-    try {
-      const _0x5f10da = atob(_0x3a42b1.target.result);
-      if (_0x5f10da.startsWith("data:image")) {
-        preview.src = _0x5f10da;
-        preview.style.display = "block";
-      } else if (_0x5f10da.startsWith("data:video")) {
-        videoPreview.src = _0x5f10da;
-        videoPreview.style.display = "block";
-      }
-      removePreview.style.display = "block";
-    } catch {
-      alert("Invalid .cro file");
+
+    function compressData(dataUrl) {
+      const data = atob(dataUrl.split(",")[1]);
+      const compressed = new Blob([data], { type: "application/octet-stream" });
+      return compressed;
     }
-  };
-  _0xd08c92.readAsText(_0x51b333);
-}
-removePreview.addEventListener("click", () => {
-  preview.style.display = "none";
-  videoPreview.style.display = "none";
-  videoPreview.pause();
-  removePreview.style.display = "none";
-  const _0x53293d = document.getElementById("downloadButton");
-  if (_0x53293d) {
-    _0x53293d.remove();
-  }
-});
-function decryptCROFile(_0x3554bb) {
-  const _0x5765dc = new FileReader();
-  _0x5765dc.onload = _0x372a10 => {
-    try {
-      const _0x2f7899 = atob(_0x372a10.target.result);
-      if (_0x2f7899.startsWith("data:image")) {
-        preview.src = _0x2f7899;
-        preview.style.display = "block";
-        createDownloadButton(_0x2f7899, "image");
-      } else if (_0x2f7899.startsWith('data:video')) {
-        videoPreview.src = _0x2f7899;
-        videoPreview.style.display = "block";
-        createDownloadButton(_0x2f7899, "video");
-      }
-      removePreview.style.display = 'block';
-    } catch (_0xc4879a) {
-      alert("Invalid .cro file");
+
+    function encryptImageToCRO(file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          canvas.width = img.width / 2;
+          canvas.height = img.height / 2;
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const compressedData = compressData(canvas.toDataURL("image/png"));
+          const encryptedData = btoa(compressedData);
+          saveCROFile(encryptedData, "image.cro");
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
     }
-  };
-  _0x5765dc.readAsText(_0x3554bb);
-}
-function createDownloadButton(_0xfadcc6, _0x20e000) {
-  let _0x22cc8e = document.getElementById("downloadButton");
-  if (_0x22cc8e) {
-    _0x22cc8e.remove();
-  }
-  _0x22cc8e = document.createElement('a');
-  _0x22cc8e.id = "downloadButton";
-  _0x22cc8e.textContent = "Download " + _0x20e000;
-  _0x22cc8e.href = _0xfadcc6;
-  _0x22cc8e.download = _0x20e000;
-  _0x22cc8e.style.display = "block";
-  _0x22cc8e.style.marginTop = "10px";
-  _0x22cc8e.style.padding = "10px 20px";
-  _0x22cc8e.style.backgroundColor = "var(--button-bg)";
-  _0x22cc8e.style.color = "#fff";
-  _0x22cc8e.style.textDecoration = "none";
-  _0x22cc8e.style.borderRadius = "5px";
-  _0x22cc8e.style.cursor = "pointer";
-  _0x22cc8e.addEventListener('mouseover', () => {
-    _0x22cc8e.style.backgroundColor = "var(--button-hover-bg)";
-  });
-  _0x22cc8e.addEventListener("mouseout", () => {
-    _0x22cc8e.style.backgroundColor = "var(--button-bg)";
-  });
-  document.querySelector(".mac-content").appendChild(_0x22cc8e);
-}
-</script>
+
+    function encryptVideoToCRO(file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const compressedData = compressData(event.target.result);
+        const encryptedData = btoa(compressedData);
+        saveCROFile(encryptedData, "video.cro");
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
+    function decryptCROFile(file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const data = atob(event.target.result);
+          if (data.includes("video")) {
+            const blob = new Blob([data], { type: "video/mp4" });
+            videoPreview.src = URL.createObjectURL(blob);
+            videoPreview.style.display = "block";
+            preview.style.display = "none";
+          } else {
+            preview.src = data;
+            preview.style.display = "block";
+            videoPreview.style.display = "none";
+          }
+          previewContainer.style.display = "block";
+        } catch {
+          alert("Invalid .cro file.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function saveCROFile(data, filename) {
+      const blob = new Blob([data], { type: "text/plain" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      link.click();
+    }
+
+    removePreview.addEventListener("click", () => {
+      preview.src = "";
+      videoPreview.src = "";
+      preview.style.display = "none";
+      videoPreview.style.display = "none";
+      previewContainer.style.display = "none";
+    });
+  </script>
 </body>
 </html>
